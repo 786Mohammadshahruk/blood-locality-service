@@ -1,4 +1,4 @@
-package com.sthumbh.bloodlocalityservice.model;
+package com.sthumbh.bloodlocalityservice.entity;
 
 public class TownCode {
     public String townCode;

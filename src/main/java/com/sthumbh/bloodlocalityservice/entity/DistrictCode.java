@@ -1,4 +1,4 @@
-package com.sthumbh.bloodlocalityservice.model;
+package com.sthumbh.bloodlocalityservice.entity;
 
 
 import jakarta.persistence.Column;
