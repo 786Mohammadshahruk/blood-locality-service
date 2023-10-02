@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class AddressDetails {
-    private String state;
+    private String stateName;
     private int stateCode;
     private int districtCode;
     private String districtName;

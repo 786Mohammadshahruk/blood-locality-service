@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/upload")
@@ -24,10 +26,8 @@ public class AddressUploadController {
 
     @PostMapping(value = "/address-details")
     public ResponseEntity<UserResponseModel> uploadAddressDetails(@RequestParam String value) throws IOException, InvalidFormatException {
-        addressUploadService.uploadAddressDetails();
-
         ResourceData<String> resourceData = new ResourceData<>();
-        resourceData.setData("Uploaded Success");
+        resourceData.setData(addressUploadService.uploadAddressDetails());
         UserResponseModel userResponseModel = UserResponseModel.builder()
                 .metaData(new MetaData("200", "200 OK", "Success", "1.0"))
                 .resourceData(resourceData)
