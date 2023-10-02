@@ -4,6 +4,7 @@ import com.sthumbh.bloodlocalityservice.dto.DistrictDetailsDto;
 import com.sthumbh.bloodlocalityservice.dto.StateDetailsResponse;
 import com.sthumbh.bloodlocalityservice.entity.StateDetails;
 import com.sthumbh.bloodlocalityservice.exception.DistrictNotFoundException;
+import com.sthumbh.bloodlocalityservice.exception.StateNotFoundException;
 import com.sthumbh.bloodlocalityservice.repository.AddressDetailsRepo;
 import com.sthumbh.bloodlocalityservice.service.StateDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,14 @@ public class StateDetailsServiceImpl implements StateDetailsService {
             throw new DistrictNotFoundException("Invalid State / District Not Found");
         }
         return districtDetailsDto;
+    }
+
+    @Override
+    public Set<StateDetailsResponse> getState(String stateCode) throws StateNotFoundException {
+        Set<StateDetailsResponse> state =  addressDetailsRepo.getState(stateCode);
+        if(Objects.isNull(state)){
+            throw new StateNotFoundException("Invalid State / State Not Found");
+        }
+        return state;
     }
 }
