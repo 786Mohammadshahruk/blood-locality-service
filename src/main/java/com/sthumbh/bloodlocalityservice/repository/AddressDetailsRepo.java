@@ -18,10 +18,12 @@ public interface AddressDetailsRepo extends JpaRepository<StateDetails, Long> {
     @Query(value = "select * from state_details", nativeQuery = true)
     List<StateDetails> getAllStates();
 
-    @Query(value = "select new com.sthumbh.bloodlocalityservice.dto.DistrictDetailsDto(s.districtName) from StateDetails s where stateName =:state_name")
+    @Query(value = "select new com.sthumbh.bloodlocalityservice.dto.DistrictDetailsDto(s.districtName,s.districtCode) from StateDetails s where stateName =:state_name")
     Set<DistrictDetailsDto> getAllDistrict(@Param("state_name") String stateName);
 
-    @Query(value = "select new com.sthumbh.bloodlocalityservice.dto.StateDetailsResponse(s.stateName) from StateDetails s where stateCode =:stateCode")
+    @Query(value = "select new com.sthumbh.bloodlocalityservice.dto.StateDetailsResponse(s.stateName,s.stateCode) from StateDetails s where stateCode =:stateCode")
     Set<StateDetailsResponse> getState(@Param("stateCode") String stateCode);
 
+    @Query(value = "select new com.sthumbh.bloodlocalityservice.dto.DistrictDetailsDto(s.districtName,s.districtCode) from StateDetails s where stateCode =:stateCode")
+    Set<DistrictDetailsDto> getAllDistrictBasedOnStateCode(@Param("stateCode") String stateCode);
 }

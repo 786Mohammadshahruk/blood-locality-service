@@ -3,6 +3,7 @@ package com.sthumbh.bloodlocalityservice.controller;
 import com.sthumbh.bloodlocalityservice.dto.DistrictDetailsDto;
 import com.sthumbh.bloodlocalityservice.dto.StateDetailsResponse;
 import com.sthumbh.bloodlocalityservice.exception.DistrictNotFoundException;
+import com.sthumbh.bloodlocalityservice.exception.StateDetailsValidationException;
 import com.sthumbh.bloodlocalityservice.exception.StateNotFoundException;
 import com.sthumbh.bloodlocalityservice.model.response.MetaData;
 import com.sthumbh.bloodlocalityservice.model.response.ResourceData;
@@ -48,9 +49,10 @@ public class StateDetailsController {
     }
 
     @GetMapping(value = "/get-district")
-    public ResponseEntity<UserResponseModel> getDistrictDetails(@RequestParam(name = "stateName") String stateName) throws DistrictNotFoundException {
+    public ResponseEntity<UserResponseModel> getDistrictDetails(@RequestParam(name = "stateName", required = false) String stateName,
+                                                                @RequestParam(name = "stateCode", required = false) String stateCode) throws DistrictNotFoundException, StateDetailsValidationException {
         ResourceData<Set<DistrictDetailsDto>> resourceData = new ResourceData<>();
-        resourceData.setData(stateDetailsService.getDistrictDetails(stateName));
+        resourceData.setData(stateDetailsService.getDistrictDetails(stateName,stateCode));
 
         UserResponseModel userResponseModel = UserResponseModel.builder()
                 .metaData(new MetaData(StatusCodes.SUCCESS_STATUS, StatusCodes.SUCCESS_CODE, "Success", "v1"))

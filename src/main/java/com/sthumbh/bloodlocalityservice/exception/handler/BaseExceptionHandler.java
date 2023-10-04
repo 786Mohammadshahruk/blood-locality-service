@@ -1,6 +1,7 @@
 package com.sthumbh.bloodlocalityservice.exception.handler;
 
 import com.sthumbh.bloodlocalityservice.exception.DistrictNotFoundException;
+import com.sthumbh.bloodlocalityservice.exception.StateDetailsValidationException;
 import com.sthumbh.bloodlocalityservice.exception.StateNotFoundException;
 import com.sthumbh.bloodlocalityservice.model.response.MetaData;
 import com.sthumbh.bloodlocalityservice.model.response.StatusCodes;
@@ -29,6 +30,17 @@ public class BaseExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(StateNotFoundException.class)
     public ResponseEntity<UserResponseModel> stateNotFoundException(StateNotFoundException exception) {
+        MetaData metaData = MetaData.builder()
+                .code(StatusCodes.BUSINESS_ERROR_CODE)
+                .message(exception.getMessage())
+                .status(StatusCodes.BUSINESS_ERROR_STATUS)
+                .version("1.0")
+                .build();
+        UserResponseModel responseModel = UserResponseModel.builder().metaData(metaData).build();
+        return new ResponseEntity<>(responseModel, HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(StateDetailsValidationException.class)
+    public ResponseEntity<UserResponseModel> stateNotFoundException(StateDetailsValidationException exception) {
         MetaData metaData = MetaData.builder()
                 .code(StatusCodes.BUSINESS_ERROR_CODE)
                 .message(exception.getMessage())

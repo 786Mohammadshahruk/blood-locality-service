@@ -8,5 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StateDetailsResponse {
-    private String statesName;
+    private String stateName;
+    private String stateCode;
 }
